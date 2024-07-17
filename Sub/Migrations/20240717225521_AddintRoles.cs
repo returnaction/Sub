@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Sub.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class AddintRoles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,6 +18,7 @@ namespace Sub.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -168,11 +169,11 @@ namespace Sub.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5edf8313-66dd-448b-a111-e7058aaf6bd6", "02c5461e-2797-4d24-aebb-756cf39c8e57", "SuperAdmin", "SUPERADMIN" },
-                    { "c49e8523-b93c-4872-b2cb-d92f4843c98d", "4580f492-fc67-451d-b05e-7f26f4a5a316", "Member", "MEMBER" }
+                    { "5edf8313-66dd-448b-a111-e7058aaf6bd6", "f3cd7056-d9fb-4974-ada6-05bf01b07324", "Role", "SuperAdmin", "SUPERADMIN" },
+                    { "c49e8523-b93c-4872-b2cb-d92f4843c98d", "00348d0d-2f75-4402-a6ef-cc8f4ee4417a", "Role", "Member", "MEMBER" }
                 });
 
             migrationBuilder.InsertData(
@@ -180,8 +181,8 @@ namespace Sub.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "IsActive", "IsSuperuser", "IsVerified", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1e1c54f5-7105-4582-b8a8-ab88eda4b7db", 0, "5d5a1e41-2c86-4718-8d22-79810119f99a", null, "obergannikita@gmail.com", false, null, true, false, false, null, false, null, null, "OBERGANNIKITA@GMAIL.COM", "ADMIN", "AQAAAAIAAYagAAAAEFSwbmc8arwnXzqtKP2Muv/bZxshwephUwE5du2ZJnuBmDlRrCkgHZlqPRxKbLQPfA==", null, false, "13a6800c-3741-4997-9589-a1bbffd42b53", false, "Admin" },
-                    { "64ca7758-4f3d-47b1-87f6-3b3ebf20ffe8", 0, "cc4c9de1-c5e8-40f4-88f0-d3ff68542fe6", null, "obergannikita2@gmail.com", false, null, true, false, false, null, false, null, null, "OBERGANNIKITA2@GMAIL.COM", "TESTMEMBER", "AQAAAAIAAYagAAAAEM4/kFGbwSpXiDjmcHOirgGcKpmdQGL2ypj5llDn+NkKGFE04KMULS4lmn2V1k/Olg==", null, false, "f29e8320-5c5f-4b70-bcf5-73429d01aa99", false, "TestMember" }
+                    { "1e1c54f5-7105-4582-b8a8-ab88eda4b7db", 0, "aafc86c5-c375-4f1e-97bc-8d1ae08c2129", null, "obergannikita@gmail.com", false, null, true, false, false, null, false, null, null, "OBERGANNIKITA@GMAIL.COM", "ADMIN", "AQAAAAIAAYagAAAAEHVPhkSQhwS2SidaKnn+M1hdr80pGsJwzJCcD0TVTPNCn4e0MZuTzz9I1oBok5V8YA==", null, false, "0bd01584-c806-4f21-beb3-11c834a9a1fe", false, "Admin" },
+                    { "64ca7758-4f3d-47b1-87f6-3b3ebf20ffe8", 0, "c11c4bf6-2f2b-49bd-8578-cdf720a5bc5c", null, "obergannikita2@gmail.com", false, null, true, false, false, null, false, null, null, "OBERGANNIKITA2@GMAIL.COM", "TESTMEMBER", "AQAAAAIAAYagAAAAEEw4XwyECZ4OsKVzeuxzdSIdUtId6laKBiY6o7GzfQyA7V3T8CQEbPzAHc2/BfaH8Q==", null, false, "4ff11514-94dc-415b-b50c-bf8254ff060a", false, "TestMember" }
                 });
 
             migrationBuilder.InsertData(

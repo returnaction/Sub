@@ -22,6 +22,42 @@ namespace Sub.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityRole");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -137,50 +173,7 @@ namespace Sub.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Sub.Models.Entities.User.Roles.Role", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "5edf8313-66dd-448b-a111-e7058aaf6bd6",
-                            ConcurrencyStamp = "02c5461e-2797-4d24-aebb-756cf39c8e57",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        },
-                        new
-                        {
-                            Id = "c49e8523-b93c-4872-b2cb-d92f4843c98d",
-                            ConcurrencyStamp = "4580f492-fc67-451d-b05e-7f26f4a5a316",
-                            Name = "Member",
-                            NormalizedName = "MEMBER"
-                        });
-                });
-
-            modelBuilder.Entity("Sub.Models.Entities.User.User", b =>
+            modelBuilder.Entity("Sub.Models.Entities.User.User.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -270,7 +263,7 @@ namespace Sub.Migrations
                         {
                             Id = "1e1c54f5-7105-4582-b8a8-ab88eda4b7db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d5a1e41-2c86-4718-8d22-79810119f99a",
+                            ConcurrencyStamp = "aafc86c5-c375-4f1e-97bc-8d1ae08c2129",
                             Email = "obergannikita@gmail.com",
                             EmailConfirmed = false,
                             IsActive = true,
@@ -279,9 +272,9 @@ namespace Sub.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "OBERGANNIKITA@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFSwbmc8arwnXzqtKP2Muv/bZxshwephUwE5du2ZJnuBmDlRrCkgHZlqPRxKbLQPfA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHVPhkSQhwS2SidaKnn+M1hdr80pGsJwzJCcD0TVTPNCn4e0MZuTzz9I1oBok5V8YA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "13a6800c-3741-4997-9589-a1bbffd42b53",
+                            SecurityStamp = "0bd01584-c806-4f21-beb3-11c834a9a1fe",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -289,7 +282,7 @@ namespace Sub.Migrations
                         {
                             Id = "64ca7758-4f3d-47b1-87f6-3b3ebf20ffe8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc4c9de1-c5e8-40f4-88f0-d3ff68542fe6",
+                            ConcurrencyStamp = "c11c4bf6-2f2b-49bd-8578-cdf720a5bc5c",
                             Email = "obergannikita2@gmail.com",
                             EmailConfirmed = false,
                             IsActive = true,
@@ -298,11 +291,34 @@ namespace Sub.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "OBERGANNIKITA2@GMAIL.COM",
                             NormalizedUserName = "TESTMEMBER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM4/kFGbwSpXiDjmcHOirgGcKpmdQGL2ypj5llDn+NkKGFE04KMULS4lmn2V1k/Olg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEw4XwyECZ4OsKVzeuxzdSIdUtId6laKBiY6o7GzfQyA7V3T8CQEbPzAHc2/BfaH8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f29e8320-5c5f-4b70-bcf5-73429d01aa99",
+                            SecurityStamp = "4ff11514-94dc-415b-b50c-bf8254ff060a",
                             TwoFactorEnabled = false,
                             UserName = "TestMember"
+                        });
+                });
+
+            modelBuilder.Entity("Sub.Models.Entities.User.Roles.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.HasDiscriminator().HasValue("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5edf8313-66dd-448b-a111-e7058aaf6bd6",
+                            ConcurrencyStamp = "f3cd7056-d9fb-4974-ada6-05bf01b07324",
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        },
+                        new
+                        {
+                            Id = "c49e8523-b93c-4872-b2cb-d92f4843c98d",
+                            ConcurrencyStamp = "00348d0d-2f75-4402-a6ef-cc8f4ee4417a",
+                            Name = "Member",
+                            NormalizedName = "MEMBER"
                         });
                 });
 
@@ -327,7 +343,7 @@ namespace Sub.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Sub.Models.Entities.User.Roles.Role", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -336,7 +352,7 @@ namespace Sub.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Sub.Models.Entities.User.User", null)
+                    b.HasOne("Sub.Models.Entities.User.User.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -345,7 +361,7 @@ namespace Sub.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Sub.Models.Entities.User.User", null)
+                    b.HasOne("Sub.Models.Entities.User.User.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -354,13 +370,13 @@ namespace Sub.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Sub.Models.Entities.User.Roles.Role", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sub.Models.Entities.User.User", null)
+                    b.HasOne("Sub.Models.Entities.User.User.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -369,7 +385,7 @@ namespace Sub.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Sub.Models.Entities.User.User", null)
+                    b.HasOne("Sub.Models.Entities.User.User.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
