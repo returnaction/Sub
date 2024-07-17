@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Sub.Data;
-using Sub.Models.Entities.User;
+using Sub.Models.Entities.User.User;
 using System.Text;
 
 namespace Sub
@@ -67,3 +67,6 @@ namespace Sub
         }
     }
 }
+
+
+// TODO Sub.Models.Entities.User.User  // later I will make those not nullable for now lets have it as it is

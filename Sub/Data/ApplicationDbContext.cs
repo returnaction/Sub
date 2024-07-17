@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Sub.Configuration.RolesConfig;
-using Sub.Models.Entities.User;
 using Sub.Models.Entities.User.Roles;
+using Sub.Models.Entities.User.User;
 
 namespace Sub.Data
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Sub.Models.Entities.User;
+using Sub.Models.Entities.User.User;
 
 namespace Sub.Configuration.RolesConfig
 {
