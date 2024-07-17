@@ -24,6 +24,7 @@ namespace Sub
 
             app.UseRouting();
 
+            // use authentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
