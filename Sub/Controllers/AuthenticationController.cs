@@ -7,7 +7,7 @@ namespace Sub.Controllers
     public class AuthenticationController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly
+        private readonly SignInManager<User> _signInManager;
         public IActionResult Index()
         {
             return View();
