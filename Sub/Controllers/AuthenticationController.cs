@@ -70,5 +70,11 @@ namespace Sub.Controllers
             return View(request);
 
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
