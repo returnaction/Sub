@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Sub.Models.Entities.User.User;
 
 namespace Sub.Controllers
@@ -39,6 +40,35 @@ namespace Sub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM request, string? returnUrl = null)
+        {
+            //returnUrl = returnUrl ?? Url.Action
+            // so far let's use this link
+            returnUrl = Url.Action("Index", "Home");
+
+            var hasUser = await _userManager.FindByEmailAsync(request.Email);
+            if(hasUser is null)
+            {
+                ModelState.AddModelError("FailedLogin", "Incorrect email or password");
+                return View(request);
+            }
+
+            var loginResult = _signInManager.PasswordSignInAsync(hasUser, request.Password, request.RememberMe, true);
+
+            if (loginResult.Result.Succeeded)
+            {
+                return Redirect(returnUrl!);
+            }
+
+            ModelState.AddModelError("FailedLogin", "Не правильный пароль или логин");
+            return View(request);
+
+        }
     }
 }

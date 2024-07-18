@@ -1,0 +1,56 @@
+﻿@using Sub.Models.Entities.User.User
+@model LoginVM
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach(var error in ViewData.ModelState.Values.SelectMany(error => error.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+
+            <form class="mt-4" asp-controller="Authentication" asp-action="Login" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label asp-for="Email" class="font-weight-bold"></label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="font-weight-bold"></label>
+                    <input asp-for="Password" class="form-control" value="2752985BBnn!" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RememberMe" class="font-weight-bold"></label>
+                    <input asp-for="RememberMe" type="checkbox" class="form-check-label" value="true" />
+                    <span asp-validation-for="RememberMe" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+                <span asp-validation-summary="All" class="text-danger"></span>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
