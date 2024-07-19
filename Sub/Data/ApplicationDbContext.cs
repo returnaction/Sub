@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Sub.Configuration.RolesConfig;
+using Sub.Models.Entities.Company;
+using Sub.Models.Entities.Employee;
 using Sub.Models.Entities.User.Roles;
 using Sub.Models.Entities.User.User;
 
@@ -12,6 +14,9 @@ namespace Sub.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Employee> Employee { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

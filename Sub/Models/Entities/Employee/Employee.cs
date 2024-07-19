@@ -10,7 +10,8 @@ namespace Sub.Models.Entities.Employee
         public Guid Id { get; set; }
         public string Position { get; set; } = null!;
         public string? Obligation { get; set; } = null!;
-        public string CreatedAt { get; set; } = DateTime.Now.ToString("d");
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? UpdatedAt { get; set; }
 
         // nav props
