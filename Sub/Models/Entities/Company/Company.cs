@@ -6,7 +6,7 @@ namespace Sub.Models.Entities.Company
     public class Company
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = "Имя компании не может привышать 50 символов")]
@@ -39,7 +39,8 @@ namespace Sub.Models.Entities.Company
         // nav props
 
         [Required]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; } = null!;
+
         [ForeignKey("UserId")]
         public Sub.Models.Entities.User.User.User User { get; set; } = null!;
 

@@ -7,7 +7,7 @@ namespace Sub.Models.Entities.Employee
     public class Employee
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Position { get; set; } = null!;
         public string? Obligation { get; set; } = null!;
 
@@ -17,12 +17,13 @@ namespace Sub.Models.Entities.Employee
         // nav props
 
         [Required]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; } = null!;
+
         [ForeignKey("UserId")]
         public Sub.Models.Entities.User.User.User User { get; set; } = null!;
 
         [Required]
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
         [ForeignKey("CompanyId")]
         public Sub.Models.Entities.Company.Company Company { get; set; } = null!;
 
