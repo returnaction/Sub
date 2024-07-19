@@ -20,7 +20,7 @@ namespace Sub.Repository.BaseRepository
             await _dbSet.AddAsync(entity);
         }
 
-        public void DeleteAsync(T entity)
+        public void DeleteEntity(T entity)
         {
             _dbSet.Remove(entity);
         }
@@ -30,17 +30,12 @@ namespace Sub.Repository.BaseRepository
             return _dbSet.AsNoTracking().AsQueryable();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetEnityByIdAsync(Guid id)
         {
-            return await _dbSet.FindAsync();
+            return await _dbSet.FindAsync(id);
         }
 
-        public Task<T> GetEnityByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAsync(T entity)
+        public void UpdateEntity(T entity)
         {
             _dbSet.Update(entity);
         }
