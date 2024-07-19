@@ -15,8 +15,8 @@ namespace Sub.Data
         {
         }
 
-        public DbSet<Company> Company { get; set; }
-        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
