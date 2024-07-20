@@ -1,41 +1,16 @@
 ﻿@using Sub.Models.Entities.User.User
-@model SignUpVM
+@model UserEditVM
 @{
-    ViewData["Title"] = "SignUp";
+    ViewData["Title"] = "UserEdit";
 }
 
-
-<h1>Sign Up</h1>
+<h1>UserEdit</h1>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-4">
 
-            <form class="mt-4" asp-controller="Authentication" asp-action="SignUp" method="post" enctype="multipart/form-data">
-
-                <div class="form-group">
-                    <label asp-for="UserName" class="font-weight-bold"></label>
-                    <input asp-for="UserName" type="text" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Email" class="font-weight-bold"></label>
-                    <input asp-for="Email" type="email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Password" class="font-weight-bold"></label>
-                    <input asp-for="Password" class="form-control" value="2752985BBnn!" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword" class="font-weight-bold"></label>
-                    <input asp-for="ConfirmPassword" class="form-control" value="2752985BBnn!" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
+            <form class="mt-4" asp-controller="Authentication" asp-action="UserEdit" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label asp-for="FirstName" class="font-weight-bold"></label>
@@ -57,7 +32,7 @@
 
                 <div class="form-group">
                     <label asp-for="DateOfBirth" class="font-weight-bold"></label>
-                    <input asp-for="DateOfBirth" type="date" value="1991-07-11" class="form-control" />
+                    <input asp-for="DateOfBirth" type="date" class="form-control"  />
                     <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                 </div>
 
@@ -67,9 +42,11 @@
                     <span asp-validation-for="ProfilePicutre" class="text-danger"></span>
                 </div>
 
-                
+              
 
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+
+
+                <button type="submit" class="btn btn-primary">Сохранить</button>
 
             </form>
 

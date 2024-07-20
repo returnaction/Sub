@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Sub.Models.Entities.User.User
+﻿namespace Sub.Models.Entities.User.User
 {
-    public class User : IdentityUser
+    public class UserEditVM
     {
         public bool IsActive { get; set; } = true;
         public bool IsSuperuser { get; set; } = false;
@@ -16,9 +14,6 @@ namespace Sub.Models.Entities.User.User
 
         // picture
 
-        public string? ProfilePicturePath { get; set; }
-
-
-
+        public IFormFile? ProfilePicutre { get; set; }
     }
 }

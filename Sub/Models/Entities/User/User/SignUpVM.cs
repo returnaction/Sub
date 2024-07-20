@@ -30,5 +30,7 @@ namespace Sub.Models.Entities.User.User
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; } = null!;
 
+        public IFormFile? ProfilePicutre { get; set; }
+
     }
 }
