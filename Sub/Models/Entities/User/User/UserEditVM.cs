@@ -13,7 +13,7 @@
         public DateTime? DateOfBirth { get; set; } = null!;
 
         // picture
-
-        public IFormFile? ProfilePicutre { get; set; }
+        public string? ProfilePicturePath { get; set; }
+        public IFormFile? ProfilePicture { get; set; }
     }
 }

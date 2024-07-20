@@ -38,16 +38,19 @@
                         @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="UserEdit">Редактировать</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Logout">Выход</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="SignUp">Sign Up</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="SignUp">Зарегестироваться</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Login In</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Вход</a>
                             </li>
                         }
                     </ul>

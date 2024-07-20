@@ -6,6 +6,10 @@
 
 <h1>UserEdit</h1>
 
+<div class="text-center mb-4">
+    <img src="~/profile_pictures/@Model.ProfilePicturePath" class="rounded-circle" style="width:150px; height:150px; object-fit:cover;" />
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-4">
@@ -37,14 +41,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="ProfilePicutre" class="font-weight-bold"></label>
-                    <input asp-for="ProfilePicutre" type="file" class="form-control" />
-                    <span asp-validation-for="ProfilePicutre" class="text-danger"></span>
+                    <label asp-for="ProfilePicture" class="font-weight-bold"></label>
+                    <input asp-for="ProfilePicture" type="file" class="form-control" />
+                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                 </div>
-
-              
-
-
 
                 <button type="submit" class="btn btn-primary">Сохранить</button>
 

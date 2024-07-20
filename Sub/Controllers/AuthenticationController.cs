@@ -92,6 +92,11 @@ namespace Sub.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
 
+            if(user is null)
+            {
+                return NotFound();
+            }
+
             var userEditVM = _mapper.Map<UserEditVM>(user);
 
             return View(userEditVM);
@@ -113,20 +118,34 @@ namespace Sub.Controllers
                 return NotFound();
             }
 
+            // store the old profile picture path before mapping
+
+            var oldProfilePicturePath = user.ProfilePicturePath;
+
             _mapper.Map(request, user);
 
-            if(request.ProfilePicutre != null)
+            if(request.ProfilePicture != null && request.ProfilePicture.Length > 0)
             {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(request.ProfilePicutre.FileName);
+
+                //deleting the old profile picture if it exists
+                if (!string.IsNullOrEmpty(oldProfilePicturePath))
+                {
+                    var oldProfilePiturePath = Path.Combine(_webHostEnvironment.WebRootPath, "profile_pictures", oldProfilePicturePath);
+                    if (System.IO.File.Exists(oldProfilePiturePath))
+                    {
+                        System.IO.File.Delete(oldProfilePiturePath);
+                    }
+                }
+                var uniqueFileName = $"{Guid.NewGuid()}_{request.ProfilePicture.FileName}";
                 var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "profile_pictures");
 
-                var filePath = Path.Combine(uploadsFolder, fileName);
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using(var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await request.ProfilePicutre.CopyToAsync(fileStream);
+                    await request.ProfilePicture.CopyToAsync(fileStream);
                 }
 
-                user.ProfilePicturePath = fileName;
+                user.ProfilePicturePath = uniqueFileName;
             }
 
             var updateResult = await _userManager.UpdateAsync(user);
