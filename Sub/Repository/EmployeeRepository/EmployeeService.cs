@@ -23,7 +23,9 @@ namespace Sub.Repository.EmployeeRepository
 
         public async Task<List<EmployeeVM>> GetListEmployees()
         {
-            List<EmployeeVM>? employeeList = await _repository.GetAllAsync().ProjectTo<EmployeeVM>(_mapper.ConfigurationProvider).ToListAsync();
+            List<EmployeeVM>? employeeList = await _repository.GetAllAsync()
+                                                              .ProjectTo<EmployeeVM>(_mapper.ConfigurationProvider)
+                                                              .ToListAsync();
             return employeeList;
         }
 

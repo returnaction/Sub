@@ -1,0 +1,119 @@
+﻿@using Sub.Models.Entities.Company.VM
+@model CompanyAddVM
+@{
+    ViewData["Title"] = "AddCompany";
+}
+
+<h1>AddCompany</h1>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+
+            <form class="mt-4" asp-controller="Company" asp-action="AddCompany" method="post" enctype="multipart/form-data">
+                <input hidden asp-for="UserId" />
+
+                <div class="form-group">
+                    <label asp-for="Name" class="font-weight-bold"></label>
+                    <input asp-for="Name" type="text" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Phone" class="font-weight-bold"></label>
+                    <input asp-for="Phone" type="text" class="form-control"/>
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address" class="font-weight-bold"></label>
+                    <input asp-for="Address" type="text" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Location" class="font-weight-bold"></label>
+                    <input asp-for="Location" type="text" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Info" class="font-weight-bold"></label>
+                    <textarea asp-for="Info" type="text" class="form-control"></textarea>
+                    <span asp-validation-for="Info" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Type" class="font-weight-bold"></label>
+                    <input asp-for="Type" type="text" class="form-control" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NameLegal" class="font-weight-bold"></label>
+                    <input asp-for="NameLegal" type="text" class="form-control" />
+                    <span asp-validation-for="NameLegal" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="INN" class="font-weight-bold"></label>
+                    <input asp-for="INN" type="text" class="form-control" />
+                    <span asp-validation-for="INN" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="KPP" class="font-weight-bold"></label>
+                    <input asp-for="KPP" type="text" class="form-control" />
+                    <span asp-validation-for="KPP" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="OGRN" class="font-weight-bold"></label>
+                    <input asp-for="OGRN" type="text" class="form-control" />
+                    <span asp-validation-for="OGRN" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="OKPO" class="font-weight-bold"></label>
+                    <input asp-for="OKPO" type="text" class="form-control" />
+                    <span asp-validation-for="OKPO" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BIK" class="font-weight-bold"></label>
+                    <input asp-for="BIK" type="text" class="form-control" />
+                    <span asp-validation-for="BIK" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BankName" class="font-weight-bold"></label>
+                    <input asp-for="BankName" type="text" class="form-control" />
+                    <span asp-validation-for="BankName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BankAddress" class="font-weight-bold"></label>
+                    <input asp-for="BankAddress" type="text" class="form-control" />
+                    <span asp-validation-for="BankAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Phone" class="font-weight-bold"></label>
+                    <input asp-for="Phone" type="text" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CorrAccount" class="font-weight-bold"></label>
+                    <input asp-for="CorrAccount" type="number" value="1" class="form-control" />
+                    <span asp-validation-for="CorrAccount" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Добавить</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

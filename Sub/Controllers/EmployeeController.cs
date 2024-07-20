@@ -18,11 +18,6 @@ namespace Sub.Controllers
             _employeeService = employeeService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult AddEmployee()
         {
             return View();
