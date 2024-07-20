@@ -30,7 +30,7 @@ namespace Sub.Repository.BaseRepository
             return _dbSet.AsNoTracking().AsQueryable();
         }
 
-        public async Task<T> GetEnityByIdAsync(Guid id)
+        public async Task<T> GetEnityByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }

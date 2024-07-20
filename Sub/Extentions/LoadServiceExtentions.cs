@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Sub.Data;
 using Sub.Models.Entities.User.User;
 using Sub.Repository.BaseRepository;
+using Sub.Repository.EmployeeRepository;
 using Sub.UnitOfWork;
 using System.Text;
 
@@ -39,6 +40,8 @@ namespace Sub.Extentions
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IUnitOfWork), typeof(Sub.UnitOfWork.UnitOfWork));
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             return services;
         }

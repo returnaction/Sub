@@ -4,7 +4,7 @@ namespace Sub.Repository.BaseRepository
 {
     public interface IGenericRepository<T> where T : class , new()
     {
-        Task<T> GetEnityByIdAsync(Guid id);
+        Task<T> GetEnityByIdAsync(int id);
         IQueryable GetAllAsync();
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
 
