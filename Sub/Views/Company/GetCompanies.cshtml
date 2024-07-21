@@ -12,7 +12,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Организация</th>
-                        <th scope="col">Официальное имя</th>
+                        <th scope="col">Официальное</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,10 +20,9 @@
                     {
                         <tr class="company-row" data-id="@item.Id">
 
-
                             <td>
                                 <a asp-area="" asp-controller="Company" asp-action="GetCompanyById" asp-route-id="@item.Id"> @item.Name> </a>
-                            </td>
+                            </td> 
                             <td>@item.NameLegal</td>
                         </tr>
                     }
@@ -39,7 +38,7 @@
     </div>
 </div>
 
-@* @section Scripts {
+@section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             console.log("DOM fully loaded and parsed");
@@ -53,7 +52,7 @@
                     console.log("Selected Company ID: ", companyId);
                     selectedCompanyIdInput.value = companyId;
 
-                    fetch(`/Company/GetCompanyById/${companyId}`)
+                    fetch(`/Company/GetCompanyByIdInfo/${companyId}`)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
@@ -81,4 +80,4 @@
             });
         });
     </script>
-} *@
+}

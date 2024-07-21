@@ -44,5 +44,15 @@ namespace Sub.Repository.BaseRepository
         {
             return  _dbSet.Where(predicate);
         }
+
+        public IQueryable<T> Include(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _dbSet;
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return query;
+        }
     }
 }

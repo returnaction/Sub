@@ -7,6 +7,7 @@ using Sub.Models.Entities.User.User;
 using Sub.Repository.BaseRepository;
 using Sub.Repository.CompanyRepository;
 using Sub.Repository.EmployeeRepository;
+using Sub.Repository.InvitationRepository;
 using Sub.UnitOfWork;
 using System.Text;
 
@@ -44,6 +45,7 @@ namespace Sub.Extentions
 
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IInvitationService, InvitationService>();
 
             return services;
         }

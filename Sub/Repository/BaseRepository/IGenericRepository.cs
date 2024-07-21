@@ -7,6 +7,7 @@ namespace Sub.Repository.BaseRepository
         Task<T> GetEnityByIdAsync(int id);
         IQueryable GetAllAsync();
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
+        IQueryable<T> Include(params Expression<Func<T, object>>[] includeProperties);
 
         Task AddAsync(T entity);
         void UpdateEntity(T entity);
