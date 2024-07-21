@@ -1,0 +1,87 @@
+﻿@using Sub.Models.Entities.Company.VM
+@model CompanyVM
+@{
+    ViewData["Title"] = "GetCompanyById";
+}
+
+
+<h1>@Model.Name</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Основная информация</h4>
+            <dl class="row">
+                <dt class="col-sm-4">Official Name:</dt>
+                <dd class="col-sm-8">@Model.NameLegal</dd>
+
+                <dt class="col-sm-4">Phone:</dt>
+                <dd class="col-sm-8">@Model.Phone</dd>
+
+                <dt class="col-sm-4">Address:</dt>
+                <dd class="col-sm-8">@Model.Address</dd>
+
+                <dt class="col-sm-4">Location:</dt>
+                <dd class="col-sm-8">@Model.Location</dd>
+
+                <dt class="col-sm-4">Type:</dt>
+                <dd class="col-sm-8">@Model.Type</dd>
+            </dl>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Легальная информация</h4>
+            <dl class="row">
+                <dt class="col-sm-4">INN:</dt>
+                <dd class="col-sm-8">@Model.INN</dd>
+
+                <dt class="col-sm-4">KPP:</dt>
+                <dd class="col-sm-8">@Model.KPP</dd>
+
+                <dt class="col-sm-4">OGRN:</dt>
+                <dd class="col-sm-8">@Model.OGRN</dd>
+
+                <dt class="col-sm-4">OKPO:</dt>
+                <dd class="col-sm-8">@Model.OKPO</dd>
+
+                <dt class="col-sm-4">BIK:</dt>
+                <dd class="col-sm-8">@Model.BIK</dd>
+
+                <dt class="col-sm-4">Bank Name:</dt>
+                <dd class="col-sm-8">@Model.BankName</dd>
+
+                <dt class="col-sm-4">Bank Address:</dt>
+                <dd class="col-sm-8">@Model.BankAddress</dd>
+
+                <dt class="col-sm-4">Corr. Account:</dt>
+                <dd class="col-sm-8">@Model.CorrAccount</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Дополнительная информация</h4>
+            <p>@Model.Info</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Работники</h4>
+            @if (Model.Employees.Any())
+            {
+                <ul>
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <li>@employee.User.LastName</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Пока нету работников</p>
+            }
+        </div>
+    </div>
+</div>

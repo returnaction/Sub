@@ -19,7 +19,11 @@
                     @foreach (var item in Model)
                     {
                         <tr class="company-row" data-id="@item.Id">
-                            <td>@item.Name</td>
+
+
+                            <td>
+                                <a asp-area="" asp-controller="Company" asp-action="GetCompanyById" asp-route-id="@item.Id"> @item.Name> </a>
+                            </td>
                             <td>@item.NameLegal</td>
                         </tr>
                     }
@@ -35,7 +39,7 @@
     </div>
 </div>
 
-@section Scripts {
+@* @section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             console.log("DOM fully loaded and parsed");
@@ -63,11 +67,11 @@
                             if (data) {
                                 const detailsDiv = document.getElementById("company-details");
                                 detailsDiv.innerHTML = `
-                                    <h2>${data.name || 'No Name Available'}</h2>
-                                    <p><strong>Official Name:</strong> ${data.nameLegal || 'No Legal Name Available'}</p>
-                                    <p><strong>Address:</strong> ${data.address || 'No Address Available'}</p>
-                                    <p><strong>Phone:</strong> ${data.phone || 'No Phone Available'}</p>
-                                `;
+                                            <h2>${data.name || 'No Name Available'}</h2>
+                                            <p><strong>Official Name:</strong> ${data.nameLegal || 'No Legal Name Available'}</p>
+                                            <p><strong>Address:</strong> ${data.address || 'No Address Available'}</p>
+                                            <p><strong>Phone:</strong> ${data.phone || 'No Phone Available'}</p>
+                                        `;
                             } else {
                                 console.error('Company data is null or undefined');
                             }
@@ -77,4 +81,4 @@
             });
         });
     </script>
-}
+} *@

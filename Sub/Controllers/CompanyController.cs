@@ -50,10 +50,16 @@ namespace Sub.Controllers
             return View(companies);
         }
 
-        public async Task<IActionResult> GetCompanyById(int companyId)
+        public async Task<IActionResult> GetCompanyById(int id)
         {
-            var company = await _companyService.GetCompanyByIdAsync(companyId);
-            return Json(company);
+            var company = await _companyService.GetCompanyByIdAsync(id);
+            return View(company);
         }
+
+        //public async Task<IActionResult> GetCompanyById(int companyId)
+        //{
+        //    var company = await _companyService.GetCompanyByIdAsync(companyId);
+        //    return Json(company);
+        //}
     }
 }
