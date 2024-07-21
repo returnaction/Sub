@@ -8,6 +8,7 @@ namespace Sub.Repository.CompanyRepository
         Task DeleteCompanyAsync(int id);
         Task<CompanyVM> GetCompanyByIdAsync(int id);
         Task<List<CompanyVM>> GetListCompaniesAsync();
+        Task<List<CompanyVM>> GetListCompaniesOfUser(string userId);
         Task UpdateCompanyAsync(CompanyVM request);
     }
 }

@@ -1,0 +1,80 @@
+﻿@using Sub.Models.Entities.Company.VM
+@model List<CompanyVM>
+@{
+    ViewData["Title"] = "GetCompanies";
+}
+
+<h1>Мои организации</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Организация</th>
+                        <th scope="col">Официальное имя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="company-row" data-id="@item.Id">
+                            <td>@item.Name</td>
+                            <td>@item.NameLegal</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-9">
+            <div id="company-details">
+                @* Company details go here *@
+            </div>
+            <input type="hidden" id="selectedCompanyId" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOM fully loaded and parsed");
+
+            const companyRows = document.querySelectorAll(".company-row");
+            const selectedCompanyIdInput = document.getElementById("selectedCompanyId");
+
+            companyRows.forEach(row => {
+                row.addEventListener("click", function () {
+                    const companyId = this.getAttribute("data-id");
+                    console.log("Selected Company ID: ", companyId);
+                    selectedCompanyIdInput.value = companyId;
+
+                    fetch(`/Company/GetCompanyById/${companyId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Company data: ", data); // Check the company data here
+
+                            // Check if data is null or undefined
+                            if (data) {
+                                const detailsDiv = document.getElementById("company-details");
+                                detailsDiv.innerHTML = `
+                                    <h2>${data.name || 'No Name Available'}</h2>
+                                    <p><strong>Official Name:</strong> ${data.nameLegal || 'No Legal Name Available'}</p>
+                                    <p><strong>Address:</strong> ${data.address || 'No Address Available'}</p>
+                                    <p><strong>Phone:</strong> ${data.phone || 'No Phone Available'}</p>
+                                `;
+                            } else {
+                                console.error('Company data is null or undefined');
+                            }
+                        })
+                        .catch(error => console.error('Fetch error:', error));
+                });
+            });
+        });
+    </script>
+}

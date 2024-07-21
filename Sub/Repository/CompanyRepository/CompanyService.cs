@@ -29,6 +29,13 @@ namespace Sub.Repository.CompanyRepository
             return companies;
         }
 
+        public async Task<List<CompanyVM>> GetListCompaniesOfUser(string userId)
+        {
+            return await _repository.Where(c => c.UserId == userId)
+                                    .ProjectTo<CompanyVM>(_mapper.ConfigurationProvider)
+                                    .ToListAsync();
+        }
+
         public async Task<CompanyVM> GetCompanyByIdAsync(int id)
         {
             var company = await _repository.Where(x => x.Id == id)

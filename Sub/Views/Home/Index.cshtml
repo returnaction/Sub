@@ -2,7 +2,35 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Зарегистрировать ИП/ООО</h5>
+                    <p class="card-text">потом поменяю</p>
+                    <a asp-controller="Company" asp-action="AddCompany" class="btn btn-primary">Создать</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Мои компании</h5>
+                    <p class="card-text">Перейти к списку и управлении моих компаний</p>
+                    <a asp-controller="Company" asp-action="GetCompanies" class="btn btn-primary">Мои компании</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Section 3</h5>
+                    <p class="card-text">This is some text for section 3.</p>
+                    <a href="#" class="btn btn-primary">Button 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
