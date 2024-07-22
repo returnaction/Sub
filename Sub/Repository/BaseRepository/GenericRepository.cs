@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Sub.Data;
 using System.Linq.Expressions;
 
@@ -45,14 +46,14 @@ namespace Sub.Repository.BaseRepository
             return  _dbSet.Where(predicate);
         }
 
-        public IQueryable<T> Include(params Expression<Func<T, object>>[] includeProperties)
+        public IIncludableQueryable<T, TProperty> Include<TProperty>(Expression<Func<T, TProperty>> navigationPropertyPath)
         {
-            IQueryable<T> query = _dbSet;
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-            return query;
+            return _dbSet.Include(navigationPropertyPath);
+        }
+
+        public IIncludableQueryable<T, TProperty> ThenInclude<TPreviousProperty, TProperty>(IIncludableQueryable<T, TPreviousProperty> query, Expression<Func<TPreviousProperty, TProperty>> navigationPropertyPath)
+        {
+            return query.ThenInclude(navigationPropertyPath);
         }
     }
 }

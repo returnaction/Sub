@@ -6,6 +6,6 @@ namespace Sub.Repository.InvitationRepository
     {
         Task<List<Invitation>> GetInvitationsForUserAsync(string userId);
         Task SendInvitationAsync(InvitationVM request, string inviterId);
-        Task RespondToInvitationAsync(int invitationId, bool accept);
+        Task RespondToInvitationAsync(int invitationId, bool accept, string userEmail);
     }
 }

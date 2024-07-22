@@ -4,13 +4,11 @@
     ViewData["Title"] = "AddCompany";
 }
 
-<h1>AddCompany</h1>
-
-
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-4">
+    <h1 class="text-center">Создать организацию</h1>
 
+    <div class="row justify-content-center">
+        <div class="col-12">
             <form class="mt-4" asp-controller="Company" asp-action="AddCompany" method="post" enctype="multipart/form-data">
                 <input hidden asp-for="UserId" />
 
@@ -22,7 +20,7 @@
 
                 <div class="form-group">
                     <label asp-for="Phone" class="font-weight-bold"></label>
-                    <input asp-for="Phone" type="text" class="form-control"/>
+                    <input asp-for="Phone" type="text" class="form-control" />
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
 
@@ -99,21 +97,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Phone" class="font-weight-bold"></label>
-                    <input asp-for="Phone" type="text" class="form-control" />
-                    <span asp-validation-for="Phone" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
                     <label asp-for="CorrAccount" class="font-weight-bold"></label>
-                    <input asp-for="CorrAccount" type="number"  class="form-control" />
+                    <input asp-for="CorrAccount" type="number" class="form-control" />
                     <span asp-validation-for="CorrAccount" class="text-danger"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Добавить</button>
-
+                <button type="submit" class="btn btn-primary btn-block">Добавить</button>
             </form>
-
         </div>
     </div>
 </div>

@@ -70,9 +70,10 @@ namespace Sub.Controllers
 
         // Invitations
         [HttpGet]
-        public IActionResult Invite()
+        public IActionResult Invite(int companyId)
         {
-            return View(new InvitationVM());
+            ViewBag.CurrentCompanyId = companyId;
+            return View(new InvitationVM { CompanyId = companyId});
         }
 
         [HttpPost]
@@ -95,7 +96,8 @@ namespace Sub.Controllers
         [HttpPost]
         public async Task<IActionResult> RespondToInvitation(int id, bool accept)
         {
-            await _invitationService.RespondToInvitationAsync(id, accept);
+            var user = await _userManager.GetUserAsync(User);
+            await _invitationService.RespondToInvitationAsync(id, accept, user!.Email!);
             return RedirectToAction("MyInvitations");
         }
     }

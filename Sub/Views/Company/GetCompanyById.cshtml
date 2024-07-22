@@ -5,26 +5,26 @@
 }
 
 
-<h1>@Model.Name</h1>
-
 <div class="container">
+    <h1 class="text-center">@Model.Name</h1> 
+
     <div class="row">
         <div class="col-md-6">
             <h4>Основная информация</h4>
             <dl class="row">
-                <dt class="col-sm-4">Official Name:</dt>
+                <dt class="col-sm-4">Офиц. Имя</dt>
                 <dd class="col-sm-8">@Model.NameLegal</dd>
 
-                <dt class="col-sm-4">Phone:</dt>
+                <dt class="col-sm-4">Телефон:</dt>
                 <dd class="col-sm-8">@Model.Phone</dd>
 
-                <dt class="col-sm-4">Address:</dt>
+                <dt class="col-sm-4">Адрес:</dt>
                 <dd class="col-sm-8">@Model.Address</dd>
 
-                <dt class="col-sm-4">Location:</dt>
+                <dt class="col-sm-4">Локация:</dt>
                 <dd class="col-sm-8">@Model.Location</dd>
 
-                <dt class="col-sm-4">Type:</dt>
+                <dt class="col-sm-4">Тип:</dt>
                 <dd class="col-sm-8">@Model.Type</dd>
             </dl>
         </div>
@@ -32,28 +32,28 @@
         <div class="col-md-6">
             <h4>Легальная информация</h4>
             <dl class="row">
-                <dt class="col-sm-4">INN:</dt>
+                <dt class="col-sm-4">ИНН:</dt>
                 <dd class="col-sm-8">@Model.INN</dd>
 
-                <dt class="col-sm-4">KPP:</dt>
+                <dt class="col-sm-4">КПП:</dt>
                 <dd class="col-sm-8">@Model.KPP</dd>
 
-                <dt class="col-sm-4">OGRN:</dt>
+                <dt class="col-sm-4">ОГРН:</dt>
                 <dd class="col-sm-8">@Model.OGRN</dd>
 
-                <dt class="col-sm-4">OKPO:</dt>
+                <dt class="col-sm-4">OKПO:</dt>
                 <dd class="col-sm-8">@Model.OKPO</dd>
 
-                <dt class="col-sm-4">BIK:</dt>
+                <dt class="col-sm-4">БИК:</dt>
                 <dd class="col-sm-8">@Model.BIK</dd>
 
-                <dt class="col-sm-4">Bank Name:</dt>
+                <dt class="col-sm-4">Имя Банка:</dt>
                 <dd class="col-sm-8">@Model.BankName</dd>
 
-                <dt class="col-sm-4">Bank Address:</dt>
+                <dt class="col-sm-4">Адрес Банка:</dt>
                 <dd class="col-sm-8">@Model.BankAddress</dd>
 
-                <dt class="col-sm-4">Corr. Account:</dt>
+                <dt class="col-sm-4">Корр Аккаунт</dt>
                 <dd class="col-sm-8">@Model.CorrAccount</dd>
             </dl>
         </div>
@@ -74,7 +74,7 @@
                 <ul>
                     @foreach (var employee in Model.Employees)
                     {
-                        <li>@employee.User.LastName</li>
+                        <li>@employee.User.LastName @employee.User.FirstName @employee.User.MiddleName</li>
                     }
                 </ul>
             }
@@ -83,8 +83,6 @@
                 <p>Пока нету работников</p>
             }
         </div>
+        <a asp-controller="Company" asp-action="Invite" asp-route-companyId="@Model.Id"  class="btn btn-primary">Пригласить работника</a>
     </div>
-
-    <a asp-controller="Company" asp-action="Invite" class="btn btn-primary">Invite</a>
-
 </div>

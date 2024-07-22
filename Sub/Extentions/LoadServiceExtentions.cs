@@ -22,6 +22,7 @@ namespace Sub.Extentions
             services.AddIdentity<User, IdentityRole>()
                   .AddEntityFrameworkStores<ApplicationDbContext>()
                   .AddDefaultTokenProviders();
+            services.AddHttpContextAccessor();
             
             services.AddAutoMapper(typeof(Program));
             
@@ -46,6 +47,7 @@ namespace Sub.Extentions
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IInvitationService, InvitationService>();
+
 
             return services;
         }

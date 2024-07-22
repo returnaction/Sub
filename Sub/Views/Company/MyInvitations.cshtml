@@ -4,32 +4,38 @@
     ViewData["Title"] = "MyInvitations";
 }
 
-<h2>My Invitations</h2>
+<h2>Мои приглашения</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Компания</th>
-            <th>Пригласитель</th>
-            <th>Действие</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var invitation in Model)
-        {
+@if (Model == null || !Model.Any())
+{
+    <p>На данный момент у вас нету приглашений</p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@invitation.Company.Name</td>
-                <td>@invitation.Inviter.UserName</td> 
-                <td>
-                    <form asp-action="RespondToInvitation" asp-controller="Company" method="post">
-                        <input type="hidden" name="id" value="@invitation.Id" />
-                        <button type="submit" name="accept" value="true" class="btn btn-success">Подтвердить</button>
-                        <button type="submit" name="accept" value="false" class="btn btn-danger">Отклонить</button>
-                    </form>
-                </td>
+                <th>Компания</th>
+                <th>Пригласитель</th>
+                <th>Действие</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var invitation in Model)
+            {
+                <tr>
+                    <td>@invitation.Company.Name</td>
+                    <td>@invitation.Inviter.UserName</td>
+                    <td>
+                        <form asp-action="RespondToInvitation" asp-controller="Company" method="post">
+                            <input type="hidden" name="id" value="@invitation.Id" />
+                            <button type="submit" name="accept" value="true" class="btn btn-success">Подтвердить</button>
+                            <button type="submit" name="accept" value="false" class="btn btn-danger">Отклонить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
-                

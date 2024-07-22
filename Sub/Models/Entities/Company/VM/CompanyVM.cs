@@ -31,7 +31,7 @@ namespace Sub.Models.Entities.Company.VM
         public string BankName { get; set; } = null!;
         public string BankAddress { get; set; } = null!;
         public string CorrAccount { get; set; } = null!;
-        public List<Sub.Models.Entities.Employee.Employee> Employees { get; set; } = null!;
+        public List<Sub.Models.Entities.Employee.VM.EmployeeVM> Employees { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? UpdatedAt { get; set; }

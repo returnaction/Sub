@@ -3,8 +3,11 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Sub.Models.Entities.Company;
 using Sub.Models.Entities.Company.VM;
+using Sub.Models.Entities.Employee.VM;
+using Sub.Models.Entities.User.User;
 using Sub.Repository.BaseRepository;
 using Sub.UnitOfWork;
+using System.ComponentModel.Design;
 
 namespace Sub.Repository.CompanyRepository
 {
@@ -38,10 +41,41 @@ namespace Sub.Repository.CompanyRepository
 
         public async Task<CompanyVM> GetCompanyByIdAsync(int id)
         {
-            var company = await _repository.Where(x => x.Id == id)
-                                           .ProjectTo<CompanyVM>(_mapper.ConfigurationProvider)
-                                           .SingleOrDefaultAsync();
-            return company;
+            var query = _repository.Include(c => c.Employees)
+                            .ThenInclude(e => e.User);
+
+
+            var company = await query.Where(c => c.Id == id)
+                                     .SingleOrDefaultAsync();
+
+            var companyVM = new CompanyVM
+            {
+                Id = company.Id,
+                Name = company.Name,
+                NameLegal = company.NameLegal,
+                Address = company.Address,
+                Phone = company.Phone,
+                
+                Employees = company.Employees.Select(e => new EmployeeVM
+                {
+                    Id = e.Id,
+                    Position = e.Position,
+                    Obligation = e.Obligation,
+                    CreatedAt = e.CreatedAt,
+                    UpdatedAt = e.UpdatedAt,
+                    UserId = e.UserId,
+                    User = new User
+                    {
+                        Id = e.User.Id,
+                        FirstName = e.User.FirstName,
+                        LastName = e.User.LastName,
+                        Email = e.User.Email,
+                    },
+                    CompanyId = e.CompanyId,
+                }).ToList()
+            };
+
+            return companyVM;
         }
 
         public async Task AddCompanyAsync(CompanyAddVM request)
