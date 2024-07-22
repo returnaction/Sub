@@ -61,11 +61,40 @@ namespace Sub.Controllers
             return View(company);
         }
 
+        /// <summary>
+        /// This is for litle pop up when you click on the list of companies
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> GetCompanyByIdInfo(int id)
         {
             
             var company = await _companyService.GetCompanyByIdAsync(id);
             return Json(company);
+        }
+
+        public async Task<IActionResult> EditCompany(int id)
+        {
+            var company = await _companyService.GetCompanyByIdAsync(id);
+            // null check add later
+          
+            return View(company);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCompany(CompanyVM request)
+        {
+            ModelState.Remove(nameof(request.User));
+            ModelState.Remove(nameof(request.Employees));
+
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            await _companyService.UpdateCompanyAsync(request);
+
+            return RedirectToAction("GetCompanyById", new {id = request.Id});
         }
 
         // Invitations

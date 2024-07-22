@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using Sub.Data;
 using Sub.Models.Entities.Company;
 using Sub.Models.Entities.Company.VM;
 using Sub.Models.Entities.Employee.VM;
@@ -16,12 +17,14 @@ namespace Sub.Repository.CompanyRepository
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Company> _repository;
+        private readonly ApplicationDbContext _context;
 
-        public CompanyService(IUnitOfWork unitOfWork, IMapper mapper, IGenericRepository<Company> repository)
+        public CompanyService(IUnitOfWork unitOfWork, IMapper mapper, IGenericRepository<Company> repository, ApplicationDbContext context)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _repository = repository;
+            _context = context;
         }
 
         public async Task<List<CompanyVM>> GetListCompaniesAsync()
@@ -52,10 +55,21 @@ namespace Sub.Repository.CompanyRepository
             {
                 Id = company.Id,
                 Name = company.Name,
-                NameLegal = company.NameLegal,
-                Address = company.Address,
                 Phone = company.Phone,
-                
+                Address = company.Address,
+                Location = company.Location,
+                Info = company.Info,
+                Type = company.Type,
+                NameLegal = company.NameLegal,
+                INN = company.INN,
+                KPP = company.KPP,
+                OGRN = company.OGRN,
+                OKPO = company.OKPO,
+                BIK = company.BIK,
+                BankName = company.BankName,
+                BankAddress = company.BankAddress,
+                CorrAccount = company.CorrAccount,
+                UserId = company.UserId,
                 Employees = company.Employees.Select(e => new EmployeeVM
                 {
                     Id = e.Id,
@@ -88,9 +102,30 @@ namespace Sub.Repository.CompanyRepository
 
         public async Task UpdateCompanyAsync(CompanyVM request)
         {
-            var company = _mapper.Map<Company>(request);
+            var existingCompany = await _repository.Include(e => e.Employees)
+                                                   .ThenInclude(u => u.User)
+                                                   .SingleOrDefaultAsync(c => c.Id == request.Id);
+            // add null check
 
-            _repository.UpdateEntity(company);
+            existingCompany.Name = request.Name;
+            existingCompany.Phone = request.Phone;
+            existingCompany.Address = request.Address;
+            existingCompany.Location = request.Location;
+            existingCompany.Info = request.Info;
+            existingCompany.Type = request.Type;
+            existingCompany.NameLegal = request.NameLegal;
+            existingCompany.INN = request.INN;
+            existingCompany.KPP = request.KPP;
+            existingCompany.OGRN = request.OGRN;
+            existingCompany.OKPO = request.OKPO;
+            existingCompany.BIK = request.BIK;
+            existingCompany.BankName = request.BankName;
+            existingCompany.BankAddress = request.BankAddress;
+            existingCompany.CorrAccount = request.CorrAccount;
+            existingCompany.UserId = request.UserId;
+            
+           
+            _repository.UpdateEntity(existingCompany);
             await _unitOfWork.CommitAsync();
         }
 
