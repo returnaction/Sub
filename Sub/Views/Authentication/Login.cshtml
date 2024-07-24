@@ -21,6 +21,7 @@
         <div class="col-lg-4">
 
             <form class="mt-4" asp-controller="Authentication" asp-action="Login" method="post" enctype="multipart/form-data">
+                <span asp-validation-summary="All" class="text-danger"></span>
 
                 <div class="form-group">
                     <label asp-for="Email" class="font-weight-bold"></label>
@@ -41,7 +42,8 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Login</button>
-                <span asp-validation-summary="All" class="text-danger"></span>
+
+                <a asp-controller="Authentication" asp-action="ForgotPassword" class="btn btn-primary">Забыл пароль</a>
 
             </form>
 

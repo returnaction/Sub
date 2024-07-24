@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Sub.Data;
+using Sub.Models.Entities;
 using Sub.Models.Entities.User.User;
 using Sub.Repository.BaseRepository;
 using Sub.Repository.CompanyRepository;
+using Sub.Repository.EmaiRepository;
 using Sub.Repository.EmployeeRepository;
 using Sub.Repository.InvitationRepository;
 using Sub.UnitOfWork;
@@ -25,6 +27,8 @@ namespace Sub.Extentions
             services.AddHttpContextAccessor();
             
             services.AddAutoMapper(typeof(Program));
+
+            services.Configure<SendGridSettings>(config.GetSection("SendGrid"));
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                             .AddJwtBearer(options =>
@@ -47,6 +51,8 @@ namespace Sub.Extentions
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IInvitationService, InvitationService>();
+
+            services.AddScoped<IEmailService, EmailService>();
 
 
             return services;

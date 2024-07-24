@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Sub.Models.Entities.User.User;
+using Sub.Repository.EmaiRepository;
 
 namespace Sub.Controllers
 {
@@ -13,12 +14,15 @@ namespace Sub.Controllers
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IWebHostEnvironment webHostEnvironment)
+        private readonly IEmailService _emailService;
+
+        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IWebHostEnvironment webHostEnvironment, IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
+            _emailService = emailService;
         }
 
         public IActionResult SignUp()
@@ -36,7 +40,7 @@ namespace Sub.Controllers
 
             var user = _mapper.Map<User>(request);
 
-            if(request.ProfilePicutre is not null)
+            if (request.ProfilePicutre is not null)
             {
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "profile_pictures");
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + request.ProfilePicutre.FileName;
@@ -70,7 +74,7 @@ namespace Sub.Controllers
             returnUrl = Url.Action("Index", "Home");
 
             var hasUser = await _userManager.FindByEmailAsync(request.Email);
-            if(hasUser is null)
+            if (hasUser is null)
             {
                 ModelState.AddModelError("FailedLogin", "Incorrect email or password");
                 return View(request);
@@ -92,7 +96,7 @@ namespace Sub.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
 
-            if(user is null)
+            if (user is null)
             {
                 return NotFound();
             }
@@ -113,7 +117,7 @@ namespace Sub.Controllers
 
             var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
 
-            if(user is null)
+            if (user is null)
             {
                 return NotFound();
             }
@@ -124,7 +128,7 @@ namespace Sub.Controllers
 
             _mapper.Map(request, user);
 
-            if(request.ProfilePicture != null && request.ProfilePicture.Length > 0)
+            if (request.ProfilePicture != null && request.ProfilePicture.Length > 0)
             {
 
                 //deleting the old profile picture if it exists
@@ -140,7 +144,7 @@ namespace Sub.Controllers
                 var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "profile_pictures");
 
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using(var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await request.ProfilePicture.CopyToAsync(fileStream);
                 }
@@ -155,7 +159,7 @@ namespace Sub.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            foreach(var error in updateResult.Errors)
+            foreach (var error in updateResult.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
@@ -169,6 +173,95 @@ namespace Sub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // Reset Password
 
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswrodVM request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return RedirectToAction("ForgotPasswordConfirmation");
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetLink = Url.Action("ResetPassword", "Authentication", new { token, email = user.Email }, Request.Scheme);
+            try
+            {
+                await _emailService.SendEmailAsync(user.Email, "Восстановление пароля", $"Щелкните по ссылке для восстановления пароля: <a href='{resetLink}'>link</a>");
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ошибка в отправке имейла.");
+                return View(request);
+            }
+
+            return RedirectToAction("ForgotPasswordConfirmation");
+
+        }
+
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult ResetPassword(string token, string email)
+        {
+            if (token == null || email == null)
+            {
+                // add error later
+            }
+
+            var model = new ResetPasswordVM { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user is null)
+            {
+                return RedirectToAction("ResetPasswordConfirmation");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View();
+        }
+
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
     }
 }
+
