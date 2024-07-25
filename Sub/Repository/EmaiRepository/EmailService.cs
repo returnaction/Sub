@@ -2,40 +2,48 @@
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using Sub.Models.Entities;
+using Sub.Models.Entities.Email;
+using System.Net;
+using System.Net.Mail;
 
 namespace Sub.Repository.EmaiRepository
 {
     public class EmailService : IEmailService
     {
-        private readonly SendGridSettings _sendGridSettings;
+        private readonly SmtpSettings _smtpSettings;
         private readonly ILogger<EmailService> _logger;
 
-        public EmailService(IOptions<SendGridSettings> sendGridSettings, ILogger<EmailService> logger)
+        public EmailService(IOptions<SmtpSettings> smtpSettings, ILogger<EmailService> logger)
         {
-            _sendGridSettings = sendGridSettings.Value;
+            _smtpSettings = smtpSettings.Value;
             _logger = logger;
         }
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-            var client = new SendGridClient(_sendGridSettings.ApiKey);
-            var from = new EmailAddress("obergannikita@gmail.com", "Nikita");
-            var to = new EmailAddress(email);
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, message, message);
+            var client = new SmtpClient(_smtpSettings.Host, _smtpSettings.Port)
+            {
+                Credentials = new NetworkCredential(_smtpSettings.Username, _smtpSettings.Password),
+                EnableSsl = true
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(_smtpSettings.Username),
+                Subject = subject,
+                Body = message,
+                IsBodyHtml = true
+            };
+
+            mailMessage.To.Add(email);
 
             try
             {
-                var response = await client.SendEmailAsync(msg);
-                if (response.StatusCode != System.Net.HttpStatusCode.OK && response.StatusCode != System.Net.HttpStatusCode.Accepted)
-                {
-                    var responseBody = await response.Body.ReadAsStringAsync();
-                    _logger.LogError($"Failed to send email. StatusCode: {response.StatusCode}, ResponseBody: {responseBody}");
-                    throw new Exception($"Failed to send email. StatusCode: {response.StatusCode}, ResponseBody: {responseBody}");
-                }
+                await client.SendMailAsync(mailMessage);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error sending email");
+                // Log and rethrow or handle the error
                 throw new Exception("Error sending email", ex);
             }
         }

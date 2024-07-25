@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Sub.Data;
 using Sub.Models.Entities;
+using Sub.Models.Entities.Email;
 using Sub.Models.Entities.User.User;
 using Sub.Repository.BaseRepository;
 using Sub.Repository.CompanyRepository;
@@ -28,7 +29,7 @@ namespace Sub.Extentions
             
             services.AddAutoMapper(typeof(Program));
 
-            services.Configure<SendGridSettings>(config.GetSection("SendGrid"));
+            services.Configure<SmtpSettings>(config.GetSection("Smtp"));
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                             .AddJwtBearer(options =>
