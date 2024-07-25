@@ -25,6 +25,8 @@ namespace Sub.Controllers
             _emailService = emailService;
         }
 
+
+        // Sign up
         public IActionResult SignUp()
         {
             return View();
@@ -61,6 +63,8 @@ namespace Sub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        // Login logout
         public IActionResult Login()
         {
             return View();
@@ -92,6 +96,13 @@ namespace Sub.Controllers
 
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        // Edit User
         public async Task<IActionResult> UserEdit()
         {
             var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
@@ -167,13 +178,8 @@ namespace Sub.Controllers
             return View(request);
         }
 
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
 
-        // Reset Password
+        // Forgot password
 
         public IActionResult ForgotPassword()
         {
@@ -212,11 +218,7 @@ namespace Sub.Controllers
         }
 
 
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
+        // Reset password
         public IActionResult ResetPassword(string token, string email)
         {
             if (token == null || email == null)
@@ -258,6 +260,10 @@ namespace Sub.Controllers
             return View();
         }
 
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
         public IActionResult ResetPasswordConfirmation()
         {
             return View();
