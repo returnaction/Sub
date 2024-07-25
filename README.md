@@ -1,12 +1,14 @@
 # Sub
 
 Задание сделать что-то наподобией вот такого проектика: 
+
 http://45.128.207.89/docs
+
 https://www.figma.com/board/c7M8hmzeOcEjxLIgX8cqXI/Construct-CRM?node-id=0-1
 
-c#
-asp.net 8 mvc
-MS SQL
+c#,
+asp.net 8 mvc, 
+MS SQL.
 
 Проект должен включать в себя:
   Регистрация нового пользователя
