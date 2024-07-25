@@ -10,7 +10,14 @@
                 <div class="card-body">
                     <h5 class="card-title">Зарегистрировать ИП/ООО</h5>
                     <p class="card-text">потом поменяю</p>
-                    <a asp-controller="Company" asp-action="AddCompany" class="btn btn-primary">Создать</a>
+                    @if (User.Identity!.IsAuthenticated)
+                    {   
+                        <a asp-controller="Company" asp-action="AddCompany" class="btn btn-primary">Создать</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="showLoginPopup()">Создать</a>
+                    }
                 </div>
             </div>
         </div>
@@ -19,7 +26,14 @@
                 <div class="card-body">
                     <h5 class="card-title">Мои компании</h5>
                     <p class="card-text">Перейти к списку и управлении моих компаний</p>
-                    <a asp-controller="Company" asp-action="GetCompanies" class="btn btn-primary">Мои компании</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Company" asp-action="GetCompanies" class="btn btn-primary">Мои компании</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="showLoginPopup()">Мои компании</a>
+                    }
                 </div>
             </div>
         </div>
@@ -28,9 +42,48 @@
                 <div class="card-body">
                     <h5 class="card-title">Присоединение</h5>
                     <p class="card-text">Посмотреть список приглашений от компаний</p>
-                    <a asp-controller="Company" asp-action="MyInvitations" class="btn btn-primary">Приглашения</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Company" asp-action="MyInvitations" class="btn btn-primary">Приглашения</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="showLoginPopup()">Приглашения</a>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="loginPopup" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Внимание</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Пожалуйста, войдите в систему, чтобы продолжить.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="redirectToLogin()">Войти</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showLoginPopup() {
+            $('#loginPopup').modal('show');
+        }
+
+        function redirectToLogin() {
+            window.location.href = '@Url.Action("Login", "Authentication")';
+        }
+    </script>
+}
